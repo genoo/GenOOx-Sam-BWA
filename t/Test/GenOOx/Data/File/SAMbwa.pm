@@ -1,9 +1,15 @@
-package Test::GenOOx::Data::File::SAMbwa;
+package Test::GenOOx::Data::File::SAM;
 
 use base qw(Test::GenOOx);
 use Test::Moose;
 use Test::Most;
 
+
+sub class {
+	my ($self) = @_;
+	
+	return 'GenOO::Data::File::SAM';
+}
 
 #######################################################################
 ################   Startup (Runs once in the begining  ################
@@ -35,13 +41,6 @@ sub _isa_test : Test(1) {
 #######################################################################
 ##########################   Interface Tests   ########################
 #######################################################################
-sub file : Test(2) {
-	my ($self) = @_;
-	
-	has_attribute_ok($self->obj(0), 'file', "... has the 'file' attribute");
-	is $self->obj(0)->file, 't/sample_data/sample.sam.gz', "... and should return the correct value";
-}
-
 sub records_read_count : Test(5) {
 	my ($self) = @_;
 	
@@ -65,65 +64,18 @@ sub next_record : Test(2) {
 	isa_ok $self->obj(0)->next_record, 'GenOO::Data::File::SAM::Record', "... and the returned object";
 }
 
-sub header : Test(1) {
-	my ($self) = @_;
-	
-	can_ok $self->obj(0), 'header';
-}
-
 #######################################################################
 ###########################   Private Tests   #########################
 #######################################################################
-sub eof : Test(3) {
-	my ($self) = @_;
-	
-	has_attribute_ok($self->obj(0), '_is_eof_reached', "... has the '_is_eof_reached' attribute");
-	is $self->obj(0)->_is_eof_reached, 0, "... and should return the correct value";
-	
-	while ($self->obj(0)->next_record) {}
-	is $self->obj(0)->_is_eof_reached, 1, "... and should return the correct value again";
-}
-
-sub cached_header_lines : Test(4) {
-	my ($self) = @_;
-	
-	has_attribute_ok($self->obj(0), '_cached_header_lines', "... has the '_cached_header_lines' attribute");
-	isa_ok $self->obj(0)->_cached_header_lines, 'ARRAY', "... and the returned object";
-	
-	is $self->obj(0)->_shift_cached_header_line, join("\t",'@SQ','SN:chr1','LN:197195432'), '... and should return the correct value';
-	is $self->obj(0)->_cached_header_lines_count, 21, "... and should be able to gracefully read all remaining";
-}
-
-sub cached_record : Test(4) {
-	my ($self) = @_;
-	
-	has_attribute_ok($self->obj(0), '_cached_record', "... has the '_cached_records' attribute");
-	isa_ok $self->obj(0)->_cached_record, 'GenOO::Data::File::SAM::Record', "... and the returned object";
-	
-	is $self->obj(0)->_has_cached_record, 1, "... and should contain cached records";
-	$self->obj(0)->next_record;
-	is !$self->obj(0)->_has_cached_record, 1, "... and should empty after the ->next_record call";
-}
-
-sub next_record_from_file : Test(2) {
-	my ($self) = @_;
-	
-	can_ok $self->obj(0), '_next_record_from_file';
-	isa_ok $self->obj(0)->_next_record_from_file, 'GenOO::Data::File::SAM::Record', "... and the returned object";
-}
-
 sub parse_record_line : Test(22) {
 	my ($self) = @_;
 	
 	can_ok $self->obj(0), '_parse_record_line';
 	
-	my $sample_line = join("\t",(
-		'HWI-EAS235_25:1:1:4282:1093','16','chr18','85867636','0','32M','*','0','0',
-		'ATTCGGCAGGTGAGTTGTTACACACTCCTTAG','GHHGHHHGHHGGGDGEGHHHFHGG<GG>?BGG','XT:A:R','NM:i:0',
-		'X0:i:2','X1:i:0','XM:i:0','XO:i:0','XG:i:0','MD:Z:32','XA:Z:chr9,+110183777,32M,0;'
-	));
+	my $sample_line = join("\t",('HWI-EAS235_25:1:1:4282:1093', '16', 'chr18', '85867636', '0', '32M', '*', '0', '0', 'ATTCGGCAGGTGAGTTGTTACACACTCCTTAG', 'GHHGHHHGHHGGGDGEGHHHFHGG<GG>?BGG', 'XT:A:R', 'NM:i:0', 'X0:i:2', 'X1:i:0', 'XM:i:0', 'XO:i:0', 'XG:i:0', 'MD:Z:32', 'XA:Z:chr9,+110183777,32M,0;'));
+	
 	my $record = $self->obj(0)->_parse_record_line($sample_line);
-	isa_ok $record, 'GenOO::Data::File::SAM::Record', '... and object returned';
+	isa_ok $record, 'GenOOx::Data::File::SAMbwa::Record', '... and object returned';
 	is $record->qname, 'HWI-EAS235_25:1:1:4282:1093', '... and should contain correct value';
 	is $record->flag, '16', '... and should contain correct value again';
 	is $record->rname, 'chr18', '... and again';
@@ -157,7 +109,8 @@ sub test_objects {
 	
 	my @test_objects;
 	push @test_objects, $test_class->class->new(
-		file => 't/sample_data/sample.sam.gz'
+		file          => 't/sample_data/sample.sam.gz',
+		records_class => 'GenOOx::Data::File::SAMbwa::Record'
 	);
 	
 	return \@test_objects;

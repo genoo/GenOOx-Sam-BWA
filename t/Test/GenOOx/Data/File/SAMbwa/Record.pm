@@ -108,21 +108,10 @@ sub qual : Test(2) {
 	is $self->obj(0)->qual, 'GHHGHHHGHHGGGDGEGHHHFHGG<GG>?BGG', "... and returns the correct value";
 }
 
-sub tags : Test(11) {
+sub tags : Test(1) {
 	my ($self) = @_;
 	
 	can_ok $self->obj(0), 'tags';
-	is $self->obj(0)->tag('XT:A'), 'R', "... and returns the correct value";
-	is $self->obj(0)->tag('NM:i'), 0, "... and returns the correct value";
-	is $self->obj(0)->tag('X0:i'), 2, "... and returns the correct value";
-	is $self->obj(0)->tag('X1:i'), 0, "... and returns the correct value";
-	is $self->obj(0)->tag('XM:i'), 0, "... and returns the correct value";
-	is $self->obj(0)->tag('XO:i'), 0, "... and returns the correct value";
-	is $self->obj(0)->tag('XG:i'), 0, "... and returns the correct value";
-	is $self->obj(0)->tag('MD:Z'), 32, "... and returns the correct value";
-	is $self->obj(0)->tag('XA:Z'), 'chr9,+110183777,32M,0;chr8,+110183756,30M1I,0;',  "... and returns the correct value";
-	
-	is $self->obj(3)->tag('XT:A'), 'U',  "... and returns the correct value";
 }
 
 sub alignment_length : Test(5) {
@@ -202,14 +191,22 @@ sub query_length : Test(6) {
 	is $self->obj(4)->query_length, 20, "... and returns the correct value";
 }
 
-sub tag : Test(4) {
+sub tag : Test(11) {
 	my ($self) = @_;
 	
 	can_ok $self->obj(0), 'tag';
 	
 	is $self->obj(0)->tag('XT:A'), 'R', "... and returns the correct value";
 	is $self->obj(0)->tag('NM:i'), 0, "... and returns the correct value";
+	is $self->obj(0)->tag('X0:i'), 2, "... and returns the correct value";
+	is $self->obj(0)->tag('X1:i'), 0, "... and returns the correct value";
+	is $self->obj(0)->tag('XM:i'), 0, "... and returns the correct value";
+	is $self->obj(0)->tag('XO:i'), 0, "... and returns the correct value";
+	is $self->obj(0)->tag('XG:i'), 0, "... and returns the correct value";
+	is $self->obj(0)->tag('MD:Z'), 32, "... and returns the correct value";
+	is $self->obj(0)->tag('XA:Z'), 'chr9,+110183777,32M,0;chr8,+110183756,30M1I,0;',  "... and returns the correct value";
 	is $self->obj(3)->tag('XT:A'), 'U',  "... and returns the correct value";
+	
 }
 
 sub number_of_best_hits : Test(6) {
@@ -363,20 +360,6 @@ sub is_unmapped : Test(6) {
 	is $self->obj(4)->is_unmapped, 1, "... and again";
 }
 
-#######################################################################
-##########################   Helper Methods   #########################
-#######################################################################
-sub obj {
-	my ($self, $index) = @_;
-	
-	return $self->{TEST_OBJECTS}->[$index];
-}
-
-sub objs {
-	my ($self) = @_;
-	
-	return @{$self->{TEST_OBJECTS}};
-}
 
 #######################################################################
 ###############   Class method to create test objects   ###############

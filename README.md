@@ -1,9 +1,9 @@
-GenOOx::Data::File::SAMbwa
+GenOOx-Sam-BWA
 ==========================================================================
 
 Summary
 --------------
-A parser for the SAM format file created by the BWA program
+A parser for a file in the SAM format created by the BWA aligner
 
 Dependencies
 --------------
