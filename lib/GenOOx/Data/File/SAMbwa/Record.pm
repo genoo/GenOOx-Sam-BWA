@@ -64,7 +64,13 @@ sub number_of_best_hits {
 sub number_of_suboptimal_hits {
 	my ($self) = @_;
 	
-	return $self->tag('X1:i');
+	return $self->tag('X1:i') || 0;
+}
+
+sub number_of_mappings {
+	my ($self) = @_;
+	
+	return $self->number_of_best_hits + $self->number_of_suboptimal_hits;
 }
 
 sub alternative_mappings {

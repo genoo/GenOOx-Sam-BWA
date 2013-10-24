@@ -232,7 +232,7 @@ sub test_number_of_suboptimal_hits {
 	is $test->get_testable_object(1)->number_of_suboptimal_hits, 0, "... and returns the correct value";
 	is $test->get_testable_object(2)->number_of_suboptimal_hits, 0, "... and returns the correct value";
 	is $test->get_testable_object(3)->number_of_suboptimal_hits, 0, "... and returns the correct value";
-	is $test->get_testable_object(4)->number_of_suboptimal_hits, undef, "... and returns the correct value";
+	is $test->get_testable_object(4)->number_of_suboptimal_hits, 0, "... and returns the correct value";
 }
 
 sub test_alternative_mappings {
@@ -273,9 +273,9 @@ sub test_deletion_positions_on_query {
 	can_ok $test->get_testable_object(0), 'deletion_positions_on_query';
 	
 	is_deeply [$test->get_testable_object(0)->deletion_positions_on_query], [], "... and returns the correct value";
-	is_deeply [$test->get_testable_object(1)->deletion_positions_on_query], [95], "... and returns the correct value";
-	is_deeply [$test->get_testable_object(2)->deletion_positions_on_query], [36], "... and returns the correct value";
-	is_deeply [$test->get_testable_object(3)->deletion_positions_on_query], [56], "... and returns the correct value";
+	is_deeply [$test->get_testable_object(1)->deletion_positions_on_query], [94], "... and returns the correct value";
+	is_deeply [$test->get_testable_object(2)->deletion_positions_on_query], [35], "... and returns the correct value";
+	is_deeply [$test->get_testable_object(3)->deletion_positions_on_query], [55], "... and returns the correct value";
 }
 
 sub test_deletion_positions_on_reference {
