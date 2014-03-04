@@ -2,11 +2,12 @@
 
 =head1 NAME
 
-GenOOx::Data::File::SAMbwa - Module for reading SAM files generated from BWA aligner
+GenOOx::Data::File::SAMbwa - GenOO framework extension to read SAM files created by the BWA aligner
 
 =head1 SYNOPSIS
 
-This module is a plugin for the GenOO framework. Include it in your script and ask GenOO SAM parser to use it.
+GenOO framework extension to read SAM files created by the BWA aligner.
+Include it in your script and ask GenOO SAM parser to use it.
 
     use GenOOx::Data::File::SAMbwa::Record;
 
