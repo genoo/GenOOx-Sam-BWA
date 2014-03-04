@@ -8,15 +8,15 @@ GenOOx::Data::File::SAMbwa - Module for reading SAM files generated from BWA ali
 
 This module is a plugin for the GenOO framework. Include it in your script and ask GenOO SAM parser to use it.
 
-    use GenOOx::Data::File::SAMstar::Record;
+    use GenOOx::Data::File::SAMbwa::Record;
 
     my $file_parser = GenOO::Data::File::SAM->new(
         file          => 'file.sam',
-        records_class => 'GenOOx::Data::File::SAMstar::Record'
+        records_class => 'GenOOx::Data::File::SAMbwa::Record'
     );
 
     while (my $record = $file_parser->next_record) {
-        # $record is now an instance of GenOOx::Data::File::SAMstar::Record.
+        # $record is now an instance of GenOOx::Data::File::SAMbwa::Record.
         print $record->cigar."\n"; # name
         print $record->flag."\n"; # flag
         print $record->number_of_mappings."\n"; # new stuff not present by default
@@ -32,12 +32,12 @@ The GenOO framework SAM parser avoids code that is unique to specific programs a
     # Create a parser
     my $file_parser = GenOO::Data::File::SAM->new(
         file          => 'file.sam',
-        records_class => 'GenOOx::Data::File::SAMstar::Record'
+        records_class => 'GenOOx::Data::File::SAMbwa::Record'
     );
 
     # Loop on the records of the file
     while (my $record = $file_parser->next_record) {
-        # $record is now an instance of GenOOx::Data::File::SAMstar::Record.
+        # $record is now an instance of GenOOx::Data::File::SAMbwa::Record.
         print $record->cigar."\n"; # name
         print $record->flag."\n"; # flag
         print $record->number_of_mappings."\n"; # new stuff not present by default in GenOO
