@@ -2,11 +2,13 @@
 
 =head1 NAME
 
-GenOOx::Data::File::SAMbwa - Module to support reading SAM files generated from BWA aligner
+GenOOx::Data::File::SAMbwa - Module for reading SAM files generated from BWA aligner
 
 =head1 SYNOPSIS
 
-This module serves as a plugin for the GenOO framework. To use it just include it in your scripts and ask GenOO SAM parser to use it.
+This module is a plugin for the GenOO framework. Include it in your script and ask GenOO SAM parser to use it.
+
+    use GenOOx::Data::File::SAMstar::Record;
 
     my $file_parser = GenOO::Data::File::SAM->new(
         file          => 'file.sam',
@@ -23,7 +25,7 @@ This module serves as a plugin for the GenOO framework. To use it just include i
 
 =head1 DESCRIPTION
 
-The GenOO framework SAM parser avoids code that is unique to specific programs and makes no assumptions for the optional fields in the file. This module serves as a plugin for the GenOO framework and provides the functionality for reading SAM files generated from the BWA aligner. The module has been created on top of the generic GenOO SAM parser and to use it just include it in your scripts and ask GenOO SAM parser to use it.
+The GenOO framework SAM parser avoids code that is unique to specific programs and makes no assumptions for the optional fields in a SAM file. This module is a plugin for the GenOO framework and provides the functionality for reading SAM files generated from the BWA aligner. The module has been created on top of the generic GenOO SAM parser and to use it just include it in your scripts and ask GenOO SAM parser to use it.
 
 =head1 EXAMPLES
 
