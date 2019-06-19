@@ -58,7 +58,7 @@ extends 'GenOO::Data::File::SAM::Record';
 sub number_of_best_hits {
 	my ($self) = @_;
 	
-	return $self->tag('X0:i');
+	return $self->tag('X0:i') || 0;
 }
 
 sub number_of_suboptimal_hits {
